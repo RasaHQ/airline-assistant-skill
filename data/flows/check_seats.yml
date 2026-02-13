@@ -1,0 +1,15 @@
+flows:
+  check_seat_availability:
+    description: user wants to check seat availability or see the seat map for their flight
+    steps:
+      - action: utter_checking_seats
+      - action: action_check_seat_availability
+      - if: slots.api_error
+        then:
+          - action: utter_api_error
+        else:
+          - if: slots.seat_available
+            then:
+              - action: utter_seats_available
+            else:
+              - action: utter_no_seats_available

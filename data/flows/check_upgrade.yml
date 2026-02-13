@@ -1,0 +1,15 @@
+flows:
+  check_upgrade_availability:
+    description: user wants to check if upgrades are available for their flight
+    steps:
+      - action: utter_checking_upgrades
+      - action: action_check_upgrade_availability
+      - if: slots.api_error
+        then:
+          - action: utter_api_error
+        else:
+          - if: slots.upgrade_available
+            then:
+              - action: utter_upgrade_available
+            else:
+              - action: utter_no_upgrade_available

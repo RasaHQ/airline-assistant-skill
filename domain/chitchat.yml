@@ -1,0 +1,42 @@
+version: "3.1"
+
+responses:
+  utter_greeting:
+    - text: "Hi! I can help you with your bookings — checking upgrades, seat availability, and answering questions about your flight. How can I help?"
+
+  utter_what_can_you_do:
+    - text: "I can check upgrade availability for your flights, help with seat selection, answer questions about baggage and check-in, and look up your booking details. What would you like to know?"
+
+  utter_who_are_you:
+    - text: "I'm your airline assistant. I can help with bookings, upgrades, seats, and general flight questions."
+
+  utter_goodbye:
+    - text: "Have a great flight! Feel free to reach out if you need anything else."
+    - text: "Safe travels! I'm here if you have more questions."
+
+  utter_help:
+    - text: "I can help with upgrade availability, seat selection, booking details, and questions about baggage, check-in, or Flying Blue. What do you need?"
+
+  utter_free_chitchat_response:
+    - text: "<placeholder>"
+      metadata:
+        rephrase: True
+        rephrase_prompt: |
+          You are an airline assistant. Respond naturally and briefly.
+
+          ## Your capabilities
+          - Check upgrade availability for flights
+          - Check seat availability
+          - Look up booking details
+          - Answer questions about baggage, check-in, Flying Blue, delays
+
+          ## Your limitations
+          - You CANNOT book or purchase upgrades directly
+          - You CANNOT change bookings or cancel flights
+          - You CANNOT access payment information
+
+          Keep responses SHORT (1-2 sentences). Be friendly and helpful.
+
+          {{history}}
+
+          Response:

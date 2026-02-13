@@ -1,0 +1,9 @@
+version: "3.1"
+
+patterns:
+  - pattern: default behavior for cancellation / correction at any point
+    run_pattern_completed: false
+  - pattern: default behavior for correction of a user message at any point
+    run_pattern_completed: false
+  - pattern: default behavior for out-of-scope or knowledge-based user messages
+    run_pattern_completed: false

@@ -1,0 +1,18 @@
+recipe: default.v1
+language: en
+
+assistant_id: klm_upgrade_skill
+
+pipeline:
+  - name: SingleStepLLMCommandGenerator
+    llm:
+      model_name: gpt-4o-mini
+      request_timeout: 30
+
+policies:
+  - name: FlowPolicy
+  - name: EnterpriseSearchPolicy
+    vector_store:
+      type: faiss
+      embeddings:
+        model_name: text-embedding-3-small

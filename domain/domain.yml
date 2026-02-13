@@ -1,0 +1,112 @@
+version: "3.1"
+
+slots:
+  # User context
+  user_id:
+    type: text
+    mappings:
+      - type: controlled
+
+  # Booking context
+  selected_booking_ref:
+    type: text
+    mappings:
+      - type: controlled
+
+  booking_origin:
+    type: text
+    mappings:
+      - type: controlled
+
+  booking_destination:
+    type: text
+    mappings:
+      - type: controlled
+
+  booking_date:
+    type: text
+    mappings:
+      - type: controlled
+
+  booking_cabin_class:
+    type: text
+    mappings:
+      - type: controlled
+
+  # Upgrade availability
+  upgrade_available:
+    type: bool
+    mappings:
+      - type: controlled
+
+  upgrade_price:
+    type: text
+    mappings:
+      - type: controlled
+
+  upgrade_cabin:
+    type: text
+    mappings:
+      - type: controlled
+
+  # Seat availability
+  seat_available:
+    type: bool
+    mappings:
+      - type: controlled
+
+  available_seats:
+    type: list
+    mappings:
+      - type: controlled
+
+  # API state
+  api_error:
+    type: bool
+    mappings:
+      - type: controlled
+
+responses:
+  utter_checking_upgrades:
+    - text: "Let me check what upgrade options are available for your flight."
+
+  utter_upgrade_available:
+    - text: "Great news! There's a {upgrade_cabin} upgrade available for your {booking_origin} to {booking_destination} flight on {booking_date}. The upgrade price is {upgrade_price}."
+
+  utter_no_upgrade_available:
+    - text: "Unfortunately, there are no upgrades available for your {booking_origin} to {booking_destination} flight right now. This can change closer to departure — I'd recommend checking again 24-48 hours before your flight."
+
+  utter_checking_seats:
+    - text: "Let me check seat availability for your flight."
+
+  utter_seats_available:
+    - text: "I found some available seats for your flight. Would you like me to show you the options?"
+
+  utter_no_seats_available:
+    - text: "The seat map is fully booked for this flight. Sometimes seats open up closer to departure if other passengers change their plans."
+
+  utter_checking_booking:
+    - text: "Let me pull up your booking details."
+
+  utter_booking_summary:
+    - text: "Here's your booking: {booking_ref} — {booking_origin} to {booking_destination} on {booking_date}, travelling in {booking_cabin_class}."
+
+  utter_api_error:
+    - text: "I'm having trouble accessing that information right now. Would you like me to try again, or would you prefer to speak with one of our agents?"
+
+  utter_handoff_context:
+    - text: "I'm connecting you with an agent who can help further. I've shared our conversation so you won't need to repeat yourself."
+
+  utter_unsupported_action:
+    - text: "That's not something I can do directly, but I can help you find the right place to do it."
+      metadata:
+        rephrase: True
+        rephrase_prompt: |
+          Rephrase this response to acknowledge what the user was asking for.
+          Be helpful and suggest what you CAN do if relevant.
+
+actions:
+  - action_check_upgrade_availability
+  - action_check_seat_availability
+  - action_get_booking_details
+  - action_list_user_bookings

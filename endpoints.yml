@@ -1,0 +1,8 @@
+action_endpoint:
+  url: "http://localhost:5055/webhook"
+
+nlg:
+  type: rasa_plus.ml.ContextualResponseRephraser
+  llm:
+    model_name: gpt-4o-mini
+  prompt_template: prompt_templates/response-rephraser-template.jinja2

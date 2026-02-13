@@ -1,0 +1,30 @@
+flows:
+  greeting:
+    description: greet the user
+    steps:
+      - action: utter_greeting
+
+  what_can_you_do:
+    description: answer user questions like "what can you do" and questions about capabilities
+    steps:
+      - action: utter_what_can_you_do
+
+  who_are_you:
+    description: respond to users asking who you are or what you are
+    steps:
+      - action: utter_who_are_you
+
+  user_goodbye:
+    description: user says goodbye or is leaving
+    steps:
+      - action: utter_goodbye
+
+  help_general:
+    description: respond to general help requests
+    steps:
+      - action: utter_help
+
+  chitchat_general:
+    description: user is making casual conversation or asking general questions
+    steps:
+      - action: utter_free_chitchat_response

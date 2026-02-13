@@ -1,0 +1,28 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "klm-upgrade-skill"
+version = "0.1.0"
+description = "An upgraded airline assistant skill demonstrating what's possible beyond deflection"
+requires-python = ">=3.10,<3.12"
+dependencies = [
+    "rasa-pro",
+    "python-dotenv>=1.0.0",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["actions"]
+
+[tool.hatch.build]
+include = [
+    "actions/**/*",
+]
+exclude = [
+    "data/**/*",
+    "domain/**/*",
+    "*.yml",
+    "*.yaml",
+    "*.json",
+]
