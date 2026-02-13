@@ -2,7 +2,7 @@
 
 A demo Rasa skill showing what an airline assistant could do — beyond just linking to the website.
 
-[![Launch on Hello Rasa](https://hello.rasa.io/launch.svg)](https://hello.rasa.io/go?repo=rasahq/airline-assistant-skill)
+[![Launch on Hello Rasa](https://hello.rasa.com/launch.svg)](https://hello.rasa.com/go?repo=rasahq/airline-assistant-skill)
 
 ## Quick Start
 
