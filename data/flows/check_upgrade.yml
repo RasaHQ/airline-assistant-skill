@@ -4,11 +4,11 @@ flows:
     steps:
       - action: utter_checking_upgrades
       - action: action_check_upgrade_availability
-      - if: slots.api_error
+      - if: "slots.api_error"
         then:
           - action: utter_api_error
         else:
-          - if: slots.upgrade_available
+          - if: "slots.upgrade_available"
             then:
               - action: utter_upgrade_available
             else:

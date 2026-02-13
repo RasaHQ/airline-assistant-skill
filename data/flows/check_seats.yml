@@ -4,11 +4,11 @@ flows:
     steps:
       - action: utter_checking_seats
       - action: action_check_seat_availability
-      - if: slots.api_error
+      - if: "slots.api_error"
         then:
           - action: utter_api_error
         else:
-          - if: slots.seat_available
+          - if: "slots.seat_available"
             then:
               - action: utter_seats_available
             else:
