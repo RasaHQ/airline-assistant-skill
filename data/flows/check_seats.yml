@@ -2,14 +2,20 @@ flows:
   check_seat_availability:
     description: user wants to check seat availability or see the seat map for their flight
     steps:
-      - action: utter_checking_seats
-      - action: action_check_seat_availability
-      - if: "slots.api_error"
-        then:
-          - action: utter_api_error
-        else:
+      - id: "ack"
+        action: utter_checking_seats
+        next: "check"
+      - id: "check"
+        action: action_check_seat_availability
+        next:
+          - if: "slots.api_error"
+            then: "error"
           - if: "slots.seat_available"
-            then:
-              - action: utter_seats_available
-            else:
-              - action: utter_no_seats_available
+            then: "available"
+          - else: "not_available"
+      - id: "error"
+        action: utter_api_error
+      - id: "available"
+        action: utter_seats_available
+      - id: "not_available"
+        action: utter_no_seats_available

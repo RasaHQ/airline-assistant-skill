@@ -2,10 +2,16 @@ flows:
   check_booking_details:
     description: user wants to see their booking details or check their reservation
     steps:
-      - action: utter_checking_booking
-      - action: action_get_booking_details
-      - if: "slots.api_error"
-        then:
-          - action: utter_api_error
-        else:
-          - action: utter_booking_summary
+      - id: "ack"
+        action: utter_checking_booking
+        next: "lookup"
+      - id: "lookup"
+        action: action_get_booking_details
+        next:
+          - if: "slots.api_error"
+            then: "error"
+          - else: "summary"
+      - id: "error"
+        action: utter_api_error
+      - id: "summary"
+        action: utter_booking_summary
