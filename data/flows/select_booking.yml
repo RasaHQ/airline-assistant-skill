@@ -1,0 +1,27 @@
+flows:
+  select_booking:
+    description: list the user's bookings and ask them to select one
+    if: False
+    persisted_slots:
+      - selected_booking_ref
+    steps:
+      - id: "reset_garbage"
+        action: action_validate_booking_ref
+        next:
+          - if: "slots.selected_booking_ref is not null"
+            then: END
+          - else: "list"
+      - id: "list"
+        action: action_list_user_bookings
+        next:
+          - if: "slots.api_error"
+            then: "no_bookings"
+          - else: "pick"
+      - id: "no_bookings"
+        action: utter_no_bookings_found
+        next: END
+      - id: "pick"
+        collect: selected_booking_ref
+        description: "an alphanumeric booking reference containing both letters and digits, e.g. ABC123 or XYZ789. Must not be a dictionary word."
+        utter: utter_ask_selected_booking_ref
+        next: END

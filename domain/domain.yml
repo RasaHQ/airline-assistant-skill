@@ -11,7 +11,7 @@ slots:
   selected_booking_ref:
     type: text
     mappings:
-      - type: controlled
+      - type: from_llm
 
   booking_origin:
     type: text
@@ -80,7 +80,7 @@ responses:
     - text: "Let me check seat availability for your flight."
 
   utter_seats_available:
-    - text: "I found some available seats for your flight. Would you like me to show you the options?"
+    - text: "I found some available seats on your {booking_origin} to {booking_destination} flight."
 
   utter_no_seats_available:
     - text: "The seat map is fully booked for this flight. Sometimes seats open up closer to departure if other passengers change their plans."
@@ -89,7 +89,7 @@ responses:
     - text: "Let me pull up your booking details."
 
   utter_booking_summary:
-    - text: "Here's your booking: {booking_ref} — {booking_origin} to {booking_destination} on {booking_date}, travelling in {booking_cabin_class}."
+    - text: "Here's your booking: {selected_booking_ref} — {booking_origin} to {booking_destination} on {booking_date}, travelling in {booking_cabin_class}."
 
   utter_api_error:
     - text: "I'm having trouble accessing that information right now. Would you like me to try again, or would you prefer to speak with one of our agents?"
@@ -105,8 +105,37 @@ responses:
           Rephrase this response to acknowledge what the user was asking for.
           Be helpful and suggest what you CAN do if relevant.
 
+  utter_no_bookings_found:
+    - text: "I couldn't find any bookings on your account. If you have a booking reference, you can share it with me directly."
+
+  utter_ask_selected_booking_ref:
+    - text: "Which booking would you like me to look at? Please share the booking reference."
+
+  utter_upgrade_next_steps:
+    - text: "You can purchase this upgrade on the website — you'll be taken straight to the upgrade page for this booking. I can also check seat availability if you'd like."
+      metadata:
+        rephrase: True
+
+  utter_seat_map_link:
+    - text: "You can view and select seats on the seat map — here's a direct link to your booking. The map shows real-time availability."
+      metadata:
+        rephrase: True
+
+  utter_after_upgrade:
+    - text: "I can also check seat availability for this flight or look up other booking details."
+
+  utter_after_seats:
+    - text: "I can also check upgrade options for this flight or look up your booking details."
+
+  utter_after_details:
+    - text: "Would you like me to check upgrade availability or seat options for this flight?"
+
+  utter_can_i_help_with_anything_else:
+    - text: "Is there anything else I can help you with?"
+
 actions:
   - action_check_upgrade_availability
   - action_check_seat_availability
   - action_get_booking_details
   - action_list_user_bookings
+  - action_validate_booking_ref

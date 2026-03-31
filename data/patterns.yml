@@ -7,3 +7,42 @@ patterns:
     run_pattern_completed: false
   - pattern: default behavior for out-of-scope or knowledge-based user messages
     run_pattern_completed: false
+
+flows:
+  pattern_search:
+    description: handle a knowledge-based question or request
+    name: pattern search
+    steps:
+      - action: action_trigger_search
+
+  pattern_completed:
+    description: a flow has been completed and there is nothing else to be done
+    name: pattern completed
+    steps:
+      - noop: true
+        next:
+          - if: "context.previous_flow_name = 'check_upgrade_availability'"
+            then: "after_upgrade"
+          - if: "context.previous_flow_name = 'check_seat_availability'"
+            then: "after_seats"
+          - if: "context.previous_flow_name = 'check_booking_details'"
+            then: "after_details"
+          - else: "generic"
+      - id: "after_upgrade"
+        action: utter_after_upgrade
+        next: END
+      - id: "after_seats"
+        action: utter_after_seats
+        next: END
+      - id: "after_details"
+        action: utter_after_details
+        next: END
+      - id: "generic"
+        action: utter_can_i_help_with_anything_else
+        next: END
+
+  pattern_continue_interrupted:
+    description: auto-continue interrupted flows without asking for confirmation
+    name: pattern continue interrupted
+    steps:
+      - action: action_continue_interrupted_flow

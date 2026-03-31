@@ -40,7 +40,9 @@ class ActionCheckUpgradeAvailability(Action):
         # Simulate API latency
         await asyncio.sleep(1.0)
 
-        booking_ref = tracker.get_slot("selected_booking_ref") or "XYZ789"
+        booking_ref = tracker.get_slot("selected_booking_ref")
+        if not booking_ref:
+            return [SlotSet("api_error", True)]
 
         # "Call" the upgrade API (mocked)
         data = await self._check_upgrades(booking_ref)
@@ -63,6 +65,5 @@ class ActionCheckUpgradeAvailability(Action):
         For the demo, we return mock data.
         """
         if booking_ref not in MOCK_UPGRADE_DATA:
-            # Default to showing upgrade available for demo purposes
-            return MOCK_UPGRADE_DATA["XYZ789"]
+            return None
         return MOCK_UPGRADE_DATA[booking_ref]

@@ -1,7 +1,15 @@
 flows:
   check_booking_details:
     description: user wants to see their booking details or check their reservation
+    persisted_slots:
+      - selected_booking_ref
     steps:
+      - id: "select"
+        call: select_booking
+        next:
+          - if: "slots.api_error"
+            then: END
+          - else: "ack"
       - id: "ack"
         action: utter_checking_booking
         next: "lookup"
@@ -13,5 +21,7 @@ flows:
           - else: "summary"
       - id: "error"
         action: utter_api_error
+        next: END
       - id: "summary"
         action: utter_booking_summary
+        next: END

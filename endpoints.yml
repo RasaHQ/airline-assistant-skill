@@ -1,8 +1,21 @@
 action_endpoint:
-  url: "http://localhost:5055/webhook"
+  actions_module: "actions"
 
 nlg:
-  type: rasa_plus.ml.ContextualResponseRephraser
-  llm:
-    model_name: gpt-4o-mini
-  prompt_template: prompt_templates/response-rephraser-template.jinja2
+  type: rephrase
+  rephrase_all: true
+  summarize_history: false
+  prompt: prompt_templates/response-rephraser-template.jinja2
+  model_group: openai-gpt-4o
+
+model_groups:
+  - id: openai-gpt-4o
+    models:
+      - provider: openai
+        model: gpt-4o-2024-11-20
+        request_timeout: 7
+        max_tokens: 256
+  - id: openai-embeddings
+    models:
+      - provider: openai
+        model: text-embedding-3-large

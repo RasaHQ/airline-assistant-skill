@@ -92,14 +92,25 @@ class ActionListUserBookings(Action):
         bookings = MOCK_BOOKINGS.get(user_id, [])
 
         if not bookings:
-            dispatcher.utter_message(text="I couldn't find any bookings for your account.")
             return [SlotSet("api_error", True)]
 
-        # Format booking list
+        # If only one booking, auto-select it
+        if len(bookings) == 1:
+            b = bookings[0]
+            dispatcher.utter_message(
+                text=f"I found your booking: {b['booking_ref']} — "
+                     f"{b['origin']} to {b['destination']} on {b['date']}."
+            )
+            return [
+                SlotSet("api_error", False),
+                SlotSet("selected_booking_ref", b["booking_ref"]),
+            ]
+
+        # Multiple bookings — list them for the user to choose
         booking_list = []
         for b in bookings:
             booking_list.append(
-                f"• {b['booking_ref']} — {b['origin']} to {b['destination']} on {b['date']}"
+                f"- {b['booking_ref']} — {b['origin']} to {b['destination']} on {b['date']}"
             )
 
         message = "Here are your upcoming bookings:\n" + "\n".join(booking_list)

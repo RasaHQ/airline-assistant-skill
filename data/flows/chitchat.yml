@@ -1,30 +1,36 @@
 flows:
   greeting:
     description: greet the user
+    run_pattern_completed: false
     steps:
       - action: utter_greeting
 
   what_can_you_do:
-    description: answer user questions like "what can you do" and questions about capabilities
+    description: user asks what the assistant can do, e.g. "what can you do" or "what are your features"
+    run_pattern_completed: false
     steps:
       - action: utter_what_can_you_do
 
   who_are_you:
     description: respond to users asking who you are or what you are
+    run_pattern_completed: false
     steps:
       - action: utter_who_are_you
 
   user_goodbye:
     description: user says goodbye or is leaving
+    run_pattern_completed: false
     steps:
       - action: utter_goodbye
 
   help_general:
-    description: respond to general help requests
+    description: user asks for help using the assistant, e.g. "help" or "how do I use this"
+    run_pattern_completed: false
     steps:
       - action: utter_help
 
   chitchat_general:
-    description: user is making casual conversation or asking general questions
+    description: user is making casual small talk, jokes, or comments unrelated to flights or bookings
+    run_pattern_completed: false
     steps:
       - action: utter_free_chitchat_response

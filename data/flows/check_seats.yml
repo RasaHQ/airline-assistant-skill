@@ -1,7 +1,15 @@
 flows:
   check_seat_availability:
-    description: user wants to check seat availability or see the seat map for their flight
+    description: user wants to choose or change their seat within their booked cabin, or view the seat map
+    persisted_slots:
+      - selected_booking_ref
     steps:
+      - id: "select"
+        call: select_booking
+        next:
+          - if: "slots.api_error"
+            then: END
+          - else: "ack"
       - id: "ack"
         action: utter_checking_seats
         next: "check"
@@ -15,7 +23,13 @@ flows:
           - else: "not_available"
       - id: "error"
         action: utter_api_error
+        next: END
       - id: "available"
         action: utter_seats_available
+        next: "show_seats"
+      - id: "show_seats"
+        action: utter_seat_map_link
+        next: END
       - id: "not_available"
         action: utter_no_seats_available
+        next: END

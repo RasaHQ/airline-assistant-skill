@@ -1,7 +1,15 @@
 flows:
   check_upgrade_availability:
-    description: user wants to check if upgrades are available for their flight
+    description: user wants to check if upgrades to a higher cabin class (business, premium economy) are available, or asks about availability in a cabin class they are not currently booked in
+    persisted_slots:
+      - selected_booking_ref
     steps:
+      - id: "select"
+        call: select_booking
+        next:
+          - if: "slots.api_error"
+            then: END
+          - else: "ack"
       - id: "ack"
         action: utter_checking_upgrades
         next: "check"
@@ -15,7 +23,13 @@ flows:
           - else: "not_available"
       - id: "error"
         action: utter_api_error
+        next: END
       - id: "available"
         action: utter_upgrade_available
+        next: "offer_next"
+      - id: "offer_next"
+        action: utter_upgrade_next_steps
+        next: END
       - id: "not_available"
         action: utter_no_upgrade_available
+        next: END
