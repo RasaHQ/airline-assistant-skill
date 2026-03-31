@@ -123,7 +123,8 @@ class ActionListUserBookings(Action):
             b = bookings[0]
             dispatcher.utter_message(
                 text=f"I found your booking: {b['booking_ref']} — "
-                     f"{b['origin']} to {b['destination']} on {b['date']}."
+                     f"{b['origin']} to {b['destination']} on {b['date']}, "
+                     f"travelling in {b['cabin_class']}."
             )
             return [
                 SlotSet("api_error", False),
@@ -134,7 +135,7 @@ class ActionListUserBookings(Action):
         booking_list = []
         for b in bookings:
             booking_list.append(
-                f"- {b['booking_ref']} — {b['origin']} to {b['destination']} on {b['date']}"
+                f"- {b['booking_ref']} — {b['origin']} to {b['destination']} on {b['date']} ({b['cabin_class']})"
             )
 
         message = "Here are your upcoming bookings:\n" + "\n".join(booking_list)

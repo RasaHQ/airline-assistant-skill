@@ -112,7 +112,7 @@ responses:
     - text: "Which booking would you like me to look at? Please share the booking reference."
 
   utter_upgrade_next_steps:
-    - text: "You can purchase this upgrade now: [Complete your upgrade](https://www.klm.com/manage/upgrade/{selected_booking_ref}). I can also check seat availability if you'd like."
+    - text: "You can purchase this upgrade now: https://www.klm.com/manage/upgrade. I can also check seat availability if you'd like."
       metadata:
         rephrase: True
 
