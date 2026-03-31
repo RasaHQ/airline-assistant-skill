@@ -10,8 +10,10 @@ patterns:
 
 flows:
   pattern_session_start:
-    description: proactively greet the user when a session starts
+    description: greet the user when a session starts
     name: pattern session start
+    nlu_trigger:
+      - intent: session_start
     steps:
       - action: utter_greeting
 
