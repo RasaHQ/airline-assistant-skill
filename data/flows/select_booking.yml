@@ -16,12 +16,14 @@ flows:
         next:
           - if: "slots.api_error"
             then: "no_bookings"
+          - if: "slots.selected_booking_ref is not null"
+            then: END
           - else: "pick"
       - id: "no_bookings"
         action: utter_no_bookings_found
         next: END
       - id: "pick"
         collect: selected_booking_ref
-        description: "an alphanumeric booking reference containing both letters and digits, e.g. ABC123 or XYZ789. Must not be a dictionary word."
+        description: "the booking reference (e.g. ABC123, XYZ789). If the user already identified a flight by date, destination or other detail that uniquely matches one listed booking, use that booking's reference."
         utter: utter_ask_selected_booking_ref
         next: END
