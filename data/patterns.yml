@@ -9,6 +9,12 @@ patterns:
     run_pattern_completed: false
 
 flows:
+  pattern_session_start:
+    description: proactively greet the user when a session starts
+    name: pattern session start
+    steps:
+      - action: utter_greeting
+
   pattern_search:
     description: handle a knowledge-based question or request
     name: pattern search
